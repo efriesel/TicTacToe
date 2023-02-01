@@ -1,27 +1,32 @@
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class TicTacToeViewer extends JFrame {
     // TODO: Complete this class
     private Image background;
+
+
+
     private Image[] markers;
 
+    public final Font HEADER_FONT = new Font("Sans-Serif", 1, 36);
 
-    private TicTacToe game;
 
+    private Square[][] board;
 
+    private final int HEADER_HEIGHT = 22;
     private final int NUM_MARKERS = 2;
+    public final int WINDOW_WIDTH = 800;
+    public final int WINDOW_HEIGHT = 822;
 
-    private final int WINDOW_WIDTH = 800;
-    private final int WINDOW_HEIGHT = 822;
-
-    private final String[] MARKER_NAMES = {"O", "X"}
     private final String[] AXIS_NAMES = {"0", "1", "2"};
 
-    public TicTacToeViewer(TicTacToe game){
-        this.game = game;
+    public TicTacToeViewer(Square[][] board){
+        this.board = board;
 
-        background = new ImageIcon("Tic-tac-toe.png").getImage();
+        background = new ImageIcon("Resources/Tic-tac-toe.png").getImage();
         markers = new Image[NUM_MARKERS];
         markers[0] = new ImageIcon("O.png").getImage();
         markers[1] = new ImageIcon("X.png").getImage();
@@ -31,24 +36,24 @@ public class TicTacToeViewer extends JFrame {
         this.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         this.setVisible(true);
     }
+    public Image[] getMarkers() {
+        return markers;
+    }
 
     public void paint(Graphics g) {
         g.drawRect(0, 22, WINDOW_WIDTH, WINDOW_HEIGHT);
         drawBackground(g);
-        for (int i = 0; i < game.getBoard().length; i++){
-            for (int j = 0; j < game.getBoard().length; j++){
-                game.getBoard();
-            }
-        }
     }
 
     public void drawBackground(Graphics g){
-        g.drawImage(background, WINDOW_WIDTH / 5, (WINDOW_HEIGHT - 22) / 5 + 22, WINDOW_WIDTH * 4 / 5, (WINDOW_HEIGHT - 22) * 4 / 5 + 22, this);
+        g.setFont(HEADER_FONT);
         for (int i = 0; i < 3; i++){
-            g.drawString(AXIS_NAMES[i], WINDOW_WIDTH / 15 * (i + 4), WINDOW_HEIGHT / 6);
-        }
-        for (int i = 0; i < 3; i++){
-            g.drawString(AXIS_NAMES[i], WINDOW_WIDTH / 6, (WINDOW_HEIGHT - 22) / 5 * (i + 4) + 22);
+            if (i != 0){
+                g.drawLine(WINDOW_WIDTH / 5 * (i + 1), (WINDOW_HEIGHT - HEADER_HEIGHT) / 5 + HEADER_HEIGHT, WINDOW_WIDTH / 5 * (i + 1), (WINDOW_HEIGHT - HEADER_HEIGHT) / 5 * 4 + HEADER_HEIGHT);
+                g.drawLine(WINDOW_WIDTH / 5, (WINDOW_HEIGHT - HEADER_HEIGHT) / 5 * (i + 1) + 22, WINDOW_WIDTH / 5 * 4, (WINDOW_HEIGHT - HEADER_HEIGHT) / 5 * (i + 1) + HEADER_HEIGHT);
+            }
+            g.drawString(AXIS_NAMES[i], WINDOW_WIDTH / 15 * (i * 3 + 4), WINDOW_HEIGHT / 15 * 2 + HEADER_HEIGHT);
+            g.drawString(AXIS_NAMES[i], WINDOW_WIDTH / 15, (WINDOW_HEIGHT - HEADER_HEIGHT) / 15 * (i * 3 + 5) + HEADER_HEIGHT);
         }
     }
 }

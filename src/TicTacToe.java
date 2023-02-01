@@ -59,7 +59,7 @@ public class TicTacToe
         this.winIndex = -1;
         this.winDirection = -1;
 
-        window = new TicTacToeViewer(this);
+        window = new TicTacToeViewer(board);
     }
 
     /******************** Methods You May Find Helpful ********************/
@@ -126,6 +126,7 @@ public class TicTacToe
         }
 
         this.printBoard();
+        window.repaint();
         this.isGameOver = true;
 
         // Determine if there was a winner
