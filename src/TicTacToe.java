@@ -59,7 +59,7 @@ public class TicTacToe
         this.winIndex = -1;
         this.winDirection = -1;
 
-        window = new TicTacToeViewer(board);
+        window = new TicTacToeViewer(this);
     }
 
     /******************** Methods You May Find Helpful ********************/
@@ -114,11 +114,14 @@ public class TicTacToe
         // Loop until there is a winner or no more turns
         while(!this.checkWin() && this.checkTurn()) {
             this.printBoard();
+            window.repaint();
             System.out.println("Enter your Row Pick:" );
             int row = input.nextInt();
             System.out.println("Enter your Col Pick:" );
             int col = input.nextInt();
+
             if(this.pickLocation(row, col)) {
+
                 this.takeTurn(row, col);
             } else {
                 System.out.println("That space is taken, or you entered an invalid row/col");
@@ -126,8 +129,8 @@ public class TicTacToe
         }
 
         this.printBoard();
-        window.repaint();
         this.isGameOver = true;
+        window.repaint();
 
         // Determine if there was a winner
         if(!this.checkWin()) {

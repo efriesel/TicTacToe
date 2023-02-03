@@ -20,6 +20,7 @@ public class Square {
     private int col;
     private boolean isWinningSquare;
 
+    private final Color WINNING_COLOR = Color.GREEN;
     /**
      * Constructor to initialize one Square of the
      * TicTacToe board
@@ -62,7 +63,18 @@ public class Square {
         return this.marker;
     }
 
-    public void Draw(TicTacToeViewer window, Graphics g){
-        g.drawImage(window.getMarkers()[])
+    public void Draw(TicTacToeViewer window, int size, Graphics g) {
+        if (isWinningSquare){
+            g.setColor(WINNING_COLOR);
+            g.fillRect(window.getMarkerX()[col] + 1, window.getMarkerY()[row] + 1, size - 2, size - 2);
+        }
+        if (!isEmpty()) {
+            if (marker == TicTacToe.O_MARKER) {
+                g.drawImage(window.getMarkers()[0], window.getMarkerX()[col], window.getMarkerY()[row], size, size, window);
+            }
+            else {
+                g.drawImage(window.getMarkers()[1], window.getMarkerX()[col], window.getMarkerY()[row], size, size, window);
+            }
+        }
     }
 }
